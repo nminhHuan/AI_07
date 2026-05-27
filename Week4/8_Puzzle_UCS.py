@@ -72,7 +72,7 @@ def ucs(start_state, goal_state):
                 weight = tinh_cost(child, goal_state)
                 new_cost = current_cost + weight
                 counter += 1
-                heapq.heappush(frontier, (new_cost, counter, child, path + [action]))   
+                heapq.heappush(frontier, (new_cost, counter, child, path + [action]))
     return None, None
 
 def states_equal(a, b):
