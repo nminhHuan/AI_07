@@ -40,14 +40,6 @@ def move(x, y, action):
         y -= 1
     return x, y
 
-def tinh_cost(state, goal_state):
-    cost = 0
-    for i in range(3):
-        for j in range(3):
-            if state[i][j] != 0 and state[i][j] != goal_state[i][j]:
-                cost += 1
-    return cost
-
 def ucs(start_state, goal_state):
     if start_state == goal_state:
         return [], 0
@@ -69,8 +61,7 @@ def ucs(start_state, goal_state):
             nx, ny = move(x, y, action)
             child[x][y], child[nx][ny] = child[nx][ny], child[x][y]
             if child not in explored:
-                weight = tinh_cost(child, goal_state)
-                new_cost = current_cost + weight
+                new_cost = current_cost + 1
                 counter += 1
                 heapq.heappush(frontier, (new_cost, counter, child, path + [action]))
     return None, None
