@@ -1,5 +1,3 @@
-from collections import deque
-import random
 import copy
 
 goal = [[1,2,3],
@@ -14,21 +12,21 @@ def tim_o_trong(state):
     for i in range(3):
         for j in range(3):
             if state[i][j] == 0:
-                return i,j
+                return i, j
 
-def p_moves(x,y):
-    moves=[]
+def p_moves(x, y):
+    moves = []
     if x < 2:
         moves.append('D')
-    if x > 0:
-        moves.append('U')
     if y < 2:
         moves.append('R')
     if y > 0:
         moves.append('L')
+    if x > 0:
+        moves.append('U')
     return moves
 
-def move(x,y,action):
+def move(x, y, action):
     if action == 'D':
         x += 1
     elif action == 'U':
@@ -37,7 +35,7 @@ def move(x,y,action):
         y += 1
     elif action == 'L':
         y -= 1
-    return x,y
+    return x, y
 
 def print_board(board):
     for row in board:
@@ -54,26 +52,22 @@ def dfs(state, goal):
         node, cost = frontier.pop()   
         explored.append(node)
         x, y = tim_o_trong(node)
-        moves = p_moves(x, y)
-        random.shuffle(moves)  
+        moves = p_moves(x, y) 
         for action in moves:
             child = copy.deepcopy(node)
             nx, ny = move(x, y, action)
             child[x][y], child[nx][ny] = child[nx][ny], child[x][y]
-            print("Action:", action)
-            print("Cost:", cost + 1)
-            print_board(child)
-            frontier_states = []
-            for s, c in frontier:
-                frontier_states.append(s)
+            frontier_states = [s for s, c in frontier]
             if child not in explored and child not in frontier_states:
+                print("Action:", action)
+                print("Cost:", cost + 1)
+                print_board(child)
                 if child == goal:
                     return cost + 1
                 frontier.append((child, cost + 1))
-
     return None
 
-print("trạng thái ban đầu")
+print("Trạng thái ban đầu:")
 print_board(state)
 cost = dfs(state, goal)
 if cost is not None:

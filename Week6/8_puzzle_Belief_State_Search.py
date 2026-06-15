@@ -1,3 +1,4 @@
+#Môi trường quan sát được
 import copy
 import heapq  
 
