@@ -1026,7 +1026,7 @@ def min_conflicts_search(start_state, goal_state, max_steps=1000):
                 best_moves.append((action, neighbor))
         best_action, next_state = random.choice(best_moves)
         path.append(best_action)
-        current = next_state    
+        current = next_state   
     return None
 
 class PuzzleGUI:
@@ -1042,12 +1042,12 @@ class PuzzleGUI:
         self.buttons = [[None for _ in range(3)] for _ in range(3)]
         
         self.algo_categories = {
-            "Uninformed Search": ["BFS", "DFS", "IDS", "UCS"],
-            "Informed Search": ["A*", "Greedy Search (GS)", "IDA*"],
-            "Local Search": ["Simple Hill Climbing", "Steepest Ascent Hill Climbing", "Stochastic Hill Climbing", "Local Beam Search", "Random Restart Hill Climbing", "Simulated Annealing"],
-            "Constraint Satisfaction Problem": ["AC-3", "Backtracking Search", "Forward Checking", "Min-Conflicts"],
-            "Adversarial Search": ["Minimax Search", "Alpha-Beta Pruning", "Expectimax Search"],
-            "Searching with Uncertainty": ["AND-OR Graph Search", "Belief State Search (A*)", "Belief State Search (DFS)", "Sensorless Search (DFS)"]
+            "Uninformed search algorithms": ["BFS", "DFS", "IDS", "UCS"],
+            "Informed search algorithms": ["A*", "Greedy Search (GS)", "IDA*"],
+            "Local search": ["Simple Hill Climbing", "Steepest Ascent Hill Climbing", "Stochastic Hill Climbing", "Local Beam Search", "Random Restart Hill Climbing", "Simulated Annealing"],
+            "Searching in complex environments": ["AND-OR Graph Search", "Belief State Search (A*)", "Belief State Search (DFS)", "Sensorless Search (DFS)"],
+            "Constraint satisfaction problems": ["AC-3", "Backtracking Search", "Forward Checking", "Min-Conflicts"],
+            "Tìm kiếm đối kháng": ["Minimax Search", "Alpha-Beta Pruning", "Expectimax Search"]
         }
         
         self.is_solving = False
@@ -1136,7 +1136,7 @@ class PuzzleGUI:
 
         tk.Label(left_frame, text="Nhóm thuật toán:", font=self.font_main, bg="#F5F5F7").pack(pady=(10, 0))
         self.cat_var = tk.StringVar()
-        self.cat_combo = ttk.Combobox(left_frame, textvariable=self.cat_var, font=self.font_main, state="readonly", width=25)
+        self.cat_combo = ttk.Combobox(left_frame, textvariable=self.cat_var, font=self.font_main, state="readonly", width=30)
         self.cat_combo['values'] = list(self.algo_categories.keys())
         self.cat_combo.current(0)
         self.cat_combo.pack(pady=5)
@@ -1289,7 +1289,9 @@ class PuzzleGUI:
         self.btn_pause.config(state=tk.DISABLED, text="Dừng", bg="#8E8E93")
         
         self.status_label.config(text="Đã tạo bảng CSP (có ô khuyết)!", fg="#AB47BC")
-        self.cat_combo.current(3)
+        
+        csp_index = list(self.algo_categories.keys()).index("Constraint satisfaction problems")
+        self.cat_combo.current(csp_index)
         self.update_algo_list(None)
 
     def reset_board(self):
